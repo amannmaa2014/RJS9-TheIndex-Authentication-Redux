@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+
+// Actions
+import * as actionCreators from "./store/actions";
 
 class Login extends Component {
   state = {
@@ -12,7 +16,7 @@ class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    alert("I DON'T WORK YET");
+    this.props.login(this.state, this.props.history);
   };
 
   render() {
@@ -61,5 +65,16 @@ class Login extends Component {
     );
   }
 }
+//actions and states are global, every component we use them in
+//we import them and turn it into props then use only the parts we need in specific component.
+const mapDispatchToProps = dispatch => {
+  return {
+    login: (userData, history) =>
+      dispatch(actionCreators.login(userData, history))
+  };
+};
 
-export default Login;
+export default connect(
+  null,
+  mapDispatchToProps
+)(Login);

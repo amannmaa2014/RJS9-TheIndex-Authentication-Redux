@@ -30,7 +30,7 @@ class AuthorDetail extends Component {
             />
           </div>
           <BookTable books={author.books} />
-          <AddBookModal authorID={author.id} />
+          {this.props.user ? <AddBookModal authorID={author.id} /> : <div />}
         </div>
       );
     }
@@ -39,6 +39,7 @@ class AuthorDetail extends Component {
 
 const mapStateToProps = state => {
   return {
+    user: state.rootAuth.user,
     author: state.rootAuthor.author,
     loading: state.rootAuthor.loading
   };
